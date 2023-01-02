@@ -67,7 +67,7 @@ const questions = [
     text: 'Choose your preferred home style',
     answers: [
         {
-          text: 'Spanish home',
+          text: 'Spanish',
           image: 'https://www.thespruce.com/thmb/WducVK712batB44MEAeK-_t8Ftc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/spanish-style-living-rooms-4798045-hero-f62485a27eb14547a739669f6fcf3c95.jpg',
           alt: 'A spanish home interior photo',
           credit: 'Christopher Lee Foto'
@@ -79,7 +79,7 @@ const questions = [
           credit: 'loft buro'
         },
         {
-          text: 'Beach style',
+          text: 'Beach',
           image: 'https://cdn.onekindesign.com/wp-content/uploads/2016/04/Stonewall-Beach-House-Marthas-Vineyard-Interior-Design-03-1-Kindesign.jpg',
           alt: 'A "beach style" home interior photo',
           credit: 'onekindesign'
