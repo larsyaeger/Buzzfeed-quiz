@@ -66,81 +66,103 @@ const questions = [
     id: 2,
     text: 'Choose your preferred home style',
     answers: [
-        {
-          text: 'Spanish',
-          image: 'https://www.thespruce.com/thmb/WducVK712batB44MEAeK-_t8Ftc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/spanish-style-living-rooms-4798045-hero-f62485a27eb14547a739669f6fcf3c95.jpg',
-          alt: 'A spanish home interior photo',
-          credit: 'Christopher Lee Foto'
-        },
-        {
-          text: 'Modern industrial',
-          image: 'https://decoholic.org/wp-content/uploads/2020/10/industrial-loft-1.jpg',
-          alt: 'A modern industrial home interior photo',
-          credit: 'loft buro'
-        },
-        {
-          text: 'Beach',
-          image: 'https://cdn.onekindesign.com/wp-content/uploads/2016/04/Stonewall-Beach-House-Marthas-Vineyard-Interior-Design-03-1-Kindesign.jpg',
-          alt: 'A "beach style" home interior photo',
-          credit: 'onekindesign'
-        },
-        {
-          text: 'Modern',
-          image: 'https://images.unsplash.com/photo-1600585152915-d208bec867a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2652&q=80',
-          alt: 'A modern style home interior photo',
-          credit: 'R architecture'
-        }
+      {
+        text: 'Spanish',
+        image: 'https://www.thespruce.com/thmb/WducVK712batB44MEAeK-_t8Ftc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/spanish-style-living-rooms-4798045-hero-f62485a27eb14547a739669f6fcf3c95.jpg',
+        alt: 'A spanish home interior photo',
+        credit: 'Christopher Lee Foto'
+      },
+      {
+        text: 'Modern industrial',
+        image: 'https://decoholic.org/wp-content/uploads/2020/10/industrial-loft-1.jpg',
+        alt: 'A modern industrial home interior photo',
+        credit: 'loft buro'
+      },
+      {
+        text: 'Beach',
+        image: 'https://cdn.onekindesign.com/wp-content/uploads/2016/04/Stonewall-Beach-House-Marthas-Vineyard-Interior-Design-03-1-Kindesign.jpg',
+        alt: 'A "beach style" home interior photo',
+        credit: 'onekindesign'
+      },
+      {
+        text: 'Modern',
+        image: 'https://images.unsplash.com/photo-1600585152915-d208bec867a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2652&q=80',
+        alt: 'A modern style home interior photo',
+        credit: 'R architecture'
+      }
     ]
   }
-]
+];
+
+const unansweredQuestions = [];
+const chosenAnswers = [];
 
 const populateQuestions = () => {
   questions.forEach(question => {
-    
-    const titleBlock = document.createElement('div')
-    titleBlock.id = question.id
-    titleBlock.classList.add('title-block')
-    
-    const titleHeading = document.createElement('h2')
-    titleHeading.textContent = question.text
-    titleBlock.append(titleHeading)
-    questionDisplay.append(titleBlock)
-    
-    const answersBlock = document.createElement('div')
-    answersBlock.id = question.id + "-questions"
-    answersBlock.classList.add('answer-options')
-    
+
+    const titleBlock = document.createElement('div');
+    titleBlock.id = question.id;
+    titleBlock.classList.add('title-block');
+
+    const titleHeading = document.createElement('h2');
+    titleHeading.textContent = question.text;
+    titleBlock.append(titleHeading);
+    questionDisplay.append(titleBlock);
+
+    const answersBlock = document.createElement('div');
+    answersBlock.id = question.id + "-questions";
+    answersBlock.classList.add('answer-options');
+
+    unansweredQuestions.push(question.id);
+
     question.answers.forEach(answer => {
-     
-      const answerBlock = document.createElement('div')
-      answerBlock.classList.add('answer-block')
-      answerBlock.addEventListener('click', () => handleClick)
-     
-      const answerImage = document.createElement('img')
-      answerImage.setAttribute('src', answer.image)
-      answerImage.setAttribute('alt', answer.alt)
-     
-      const answerTitle = document.createElement('h3')
-      answerTitle.textContent = answer.text
-     
-      const answerInfo = document.createElement('p')
-     
-      const imageLink = document.createElement('a')
-      imageLink.textContent = answer.credit
-      imageLink.setAttribute('href', answer.credit)
-      
-      const sourceLink = document.createElement('a')
-      sourceLink.textContent = 'Credit: '
-      sourceLink.setAttribute('src', 'https://www.unsplash.com')
-      
-      answerInfo.append(sourceLink, ' ', imageLink)
-      answerBlock.append(answerImage, answerTitle, answerInfo)
-      answersBlock.append(answerBlock)
-    })
-    questionDisplay.append(answersBlock)
-  })
-}
+
+      const answerBlock = document.createElement('div');
+      answerBlock.classList.add('answer-block');
+      answerBlock.addEventListener('click', () => handleClick(question.id, answer.text));
+
+      const answerImage = document.createElement('img');
+      answerImage.setAttribute('src', answer.image);
+      answerImage.setAttribute('alt', answer.alt);
+
+      const answerTitle = document.createElement('h3');
+      answerTitle.textContent = answer.text;
+
+      const answerInfo = document.createElement('p');
+
+      const imageLink = document.createElement('a');
+      imageLink.textContent = answer.credit;
+      imageLink.setAttribute('href', answer.credit);
+
+      const sourceLink = document.createElement('a');
+      sourceLink.textContent = 'Credit: ';
+      sourceLink.setAttribute('src', 'https://www.unsplash.com');
+
+      answerInfo.append(sourceLink, ' ', imageLink);
+      answerBlock.append(answerImage, answerTitle, answerInfo);
+      answersBlock.append(answerBlock);
+    });
+    questionDisplay.append(answersBlock);
+  });
+};
 populateQuestions();
-const handleClick = () => {
-  console.log('clicked')
-}
+const handleClick = (questionID, chosenAnswer) => {
+  if (unansweredQuestions.includes(questionID))
+    chosenAnswers.push(chosenAnswer);
+  const itemToRemove = unansweredQuestions.indexOf(questionID);
+
+  if (itemToRemove > -1) {
+    unansweredQuestions.splice(itemToRemove, 1);
+  }
+  console.log(chosenAnswers);
+  console.log(unansweredQuestions);
+
+  //disableQuestionBlock(questionID, chosenAnswer)
+  const lowestQuestionID = Math.min(...unansweredQuestions)
+  location.href = '#' + lowestQuestionID
+
+  if (!unansweredQuestions.length) {
+    //scroll to answer div
+   // showAnswer();
+  }
+};
