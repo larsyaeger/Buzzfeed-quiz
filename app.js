@@ -126,13 +126,14 @@ const populateQuestions = () => {
       const answerInfo = document.createElement('p')
      
       const imageLink = document.createElement('a')
+      imageLink.textContent = answer.credit
       imageLink.setAttribute('href', answer.credit)
       
       const sourceLink = document.createElement('a')
-      sourceLink.textContent = 'Unsplash'
+      sourceLink.textContent = 'Credit: '
       sourceLink.setAttribute('src', 'https://www.unsplash.com')
       
-      answerInfo.append(imageLink, ' to ', sourceLink)
+      answerInfo.append(sourceLink, ' ', imageLink)
       answerBlock.append(answerImage, answerTitle, answerInfo)
       answersBlock.append(answerBlock)
     })
